@@ -6,9 +6,9 @@ Run: python3 draw.py  -> writes entry.png in this directory.
 
 The page: a broadsheet front page — giant serif masthead with the date,
 a red deck line, a numbers strip, a region bar, a UTC timeline, three
-hero stories (one wide lead + two rails), ten small stories in two rows
-of five, a light world map beside a 23-line also-list, a red DATE CHECK
-box, and a footer with sources and a HOW WE CHECKED box.
+hero stories (one wide lead + two rails), fifteen small stories in three
+rows of five, a light world map beside an 18-line also-list, a red DATE
+CHECK box, and a footer with sources and a HOW WE CHECKED legend line.
 
 Every story on the page happened, or was first reported, on Sunday
 22 November 2026, verified live from the wires (Reuters, AP, AFP, BBC,
@@ -106,20 +106,20 @@ class F:
 # --- page geometry --------------------------------------------------------
 MARGIN = 12
 RIGHT = 1012
-HERO_Y = 208
-HERO_ART = 132
+HERO_Y = 205
+HERO_ART = 100
 HERO_KICK = 14
-HERO_TEXT = 92
-HERO_H = HERO_ART + HERO_KICK + HERO_TEXT          # 238
-SMALL_Y = 454
-SMALL_ROW = 150
-SMALL_ART = 64
-SMALL_KICK = 15
-SMALL_H = SMALL_ART + 77                            # 141
-MAP_Y = 753
-MAP_W, MAP_H = 336, 148
-CHK_Y = 935
-FOOT_Y = 966
+HERO_TEXT = 88
+HERO_H = HERO_ART + HERO_KICK + HERO_TEXT          # 202
+SMALL_Y = 415
+SMALL_ROW = 126
+SMALL_ART = 48
+SMALL_KICK = 14
+SMALL_H = SMALL_ART + 76                            # 124
+MAP_Y = 801
+MAP_W, MAP_H = 336, 140
+CHK_Y = 969
+FOOT_Y = 999
 
 PROBLEMS = []
 
@@ -137,7 +137,7 @@ FRONT = [
      "186 DRONES", "161 DOWNED", "drones", "CONFIRMED"),
     (2, "ANTALYA", "CLIMATE", "REUTERS · BBC", "REPORTED",
      "COP31 text lands, deal in doubt",
-     "Keeps the 35% clean-electricity goal, drops $120bn — never names fossil fuels.",
+     "Keeps the 35% goal, drops $120bn; admits 1.5°C overshoot. No fossil fuels named.",
      "FINAL TEXT", "NO FOSSIL FUELS", "cop31", "CONFIRMED"),
     (3, "MANAMA", "IRAN", "IRGC · BAHRAIN MOI", "CLAIM",
      "Iran's radar claim, Bahrain's denial",
@@ -183,21 +183,36 @@ FRONT = [
      "Toxic-liquor toll in Manipur climbs to 19",
      "600 in hospital, six held; toll up from Saturday.",
      "TOLL AT 19", "600 IN HOSPITAL", "bottle", "REPORTED"),
+    (14, "JUNÍN", "QUAKE", "REUTERS", "REPORTED",
+     "Peru quake toll updated: 1 dead, 16 hurt",
+     "170 homes damaged in Junín; the count is completed.",
+     "1 DEAD, 16 HURT", "JUNÍN", "quake", "REPORTED"),
+    (15, "WARSAW", "DEFENCE", "REUTERS", "REPORTED",
+     "Rutte vows NATO defence",
+     "NATO chief in Warsaw: the alliance will defend every inch.",
+     "NATO DEFENCE", "WARSAW", "nato", "REPORTED"),
+    (16, "COPENHAGEN", "DIPLOMACY", "AL JAZEERA", "REPORTED",
+     "Russian attaché expelled",
+     "Denmark expels a Russian attaché over an alleged plot.",
+     "EXPELLED", "COPENHAGEN", "expelled", "REPORTED"),
+    (17, "NEW DELHI", "DIPLOMACY", "IANS", "REPORTED",
+     "Nepal PM Shah lands on state visit",
+     "Shah's first foreign trip, 22–23 Nov, meets Modi Monday.",
+     "STATE VISIT", "NEW DELHI", "statevisit", "REPORTED"),
+    (18, "SEOUL", "POLITICS", "REUTERS", "REPORTED",
+     "Minister quits over exam cheating",
+     "Seoul minister resigns; AI cheating in college exam.",
+     "EXAM CHEATING", "SEOUL", "exam", "REPORTED"),
 ]
 
 # The also-list: (number, city, one-line story, outlet). Every line is
 # measured to fit one 320px column (limit 298px) in 11px bold.
-# All 23 lines are Sunday 22 November stories, verified live. Friday's
-# Peru quake appears only as the Sunday toll update (14); Saturday's
-# big stories (El Chapo Isidro, the Bayelsa boat, the EU–Indonesia
-# deal, BepiColombo, Fred Nile, the FT's Decart report) are left out
-# of the list and named in the DATE CHECK box instead.
+# All 18 lines are Sunday 22 November stories, verified live. Friday's
+# Peru quake appears only as the Sunday toll update (14, drawn above);
+# Saturday's big stories (El Chapo Isidro, the Bayelsa boat, the
+# EU–Indonesia deal, BepiColombo, Fred Nile, the FT's Decart report)
+# are left out of the list and named in the DATE CHECK box instead.
 ALSO = [
-    (14, "Junín", "Peru quake toll: 1 dead, 16 hurt", "REUTERS"),
-    (15, "Warsaw", "Rutte vows NATO defence", "REUTERS"),
-    (16, "Copenhagen", "Russian attaché expelled", "AL JAZEERA"),
-    (17, "New Delhi", "Nepal PM Shah lands on state visit", "IANS"),
-    (18, "Seoul", "minister quits over exam cheating", "REUTERS"),
     (19, "Manila", "Chinese bomber turns back 170 km out", "AP"),
     (20, "Hanoi", "death penalty scrapped for drugs", "REUTERS"),
     (21, "Tokyo", "record 93% friendly to Korea in poll", "YONHAP"),
@@ -245,53 +260,56 @@ REGIONS = [
 ]
 
 # --- the map ---------------------------------------------------------------
-# Pins (numbered red circles) for the 13 drawn stories; dots (small navy
-# discs) for the 23 also-list lines. Coordinates are (longitude, latitude).
+# Pins (numbered red circles) for the 18 drawn stories; dots (small navy
+# discs) for the 18 also-list lines. Coordinates are (longitude, latitude).
 PINS = {
     1: (30.5, 50.4), 2: (30.7, 36.9), 3: (50.6, 26.2),
     4: (114.2, 22.3), 5: (174.8, -41.3), 6: (-115.1, 36.2),
     7: (24.5, 59.9), 8: (51.4, 35.7), 9: (106.1, -6.0),
     10: (-47.9, -15.8), 11: (-77.0, 38.9), 12: (4.4, 50.8),
-    13: (94.0, 24.8),
+    13: (94.0, 24.8), 14: (-76.0, -11.0), 15: (21.0, 52.2),
+    16: (12.6, 55.7), 17: (77.2, 28.6), 18: (127.0, 37.5),
 }
 DOTS = {
-    14: (-76.0, -11.0), 15: (21.0, 52.2), 16: (12.6, 55.7),
-    17: (77.2, 28.6), 18: (127.0, 37.5), 19: (121.0, 14.6),
-    20: (105.8, 21.0), 21: (139.7, 35.7), 22: (116.4, 39.9),
-    23: (32.6, 15.6), 24: (8.0, 9.0), 25: (29.0, 13.0),
-    26: (149.1, -35.3), 27: (145.0, -37.8), 28: (34.5, 31.5),
-    29: (46.7, 24.7), 30: (-74.0, 40.7), 31: (100.5, 13.8),
-    32: (-118.2, 34.0), 33: (-80.2, 25.8), 34: (-1.5, 53.8),
-    35: (12.45, 41.9), 36: (7.7, 45.1),
+    19: (121.0, 14.6), 20: (105.8, 21.0), 21: (139.7, 35.7),
+    22: (116.4, 39.9), 23: (32.6, 15.6), 24: (8.0, 9.0),
+    25: (29.0, 13.0), 26: (149.1, -35.3), 27: (145.0, -37.8),
+    28: (34.5, 31.5), 29: (46.7, 24.7), 30: (-74.0, 40.7),
+    31: (100.5, 13.8), 32: (-118.2, 34.0), 33: (-80.2, 25.8),
+    34: (-1.5, 53.8), 35: (12.45, 41.9), 36: (7.7, 45.1),
 }
-# The map is 336x148, equirectangular: 0.93px per degree of longitude,
-# 0.82px per degree of latitude. At that scale some places sit on top
-# of each other — a pin circle is 14px across, a dot 4px. Where a pin
-# would cover a dot (or another pin), the pin or dot is fanned out a
-# few pixels with a leader line back to its true spot. Every offset
-# below was computed numerically (min pin-pin 16.2px, min pin-dot
-# 10.2px, zero out-of-box after fanning):
-#  pin 1 Kyiv E (12,0) clears Antalya pin 2 (11.4px un-fanned);
+# The map is 336x140, equirectangular: 0.93px per degree of longitude,
+# 0.78px per degree of latitude. At that scale Europe holds nine pins in
+# a 42x20px box, so most of them are fanned out with a leader line back
+# to their true spot. Every offset below was computed numerically (min
+# pin-pin 16.1px, min pin-dot 11.9px, zero out-of-box after fanning):
+#  pin 1 Kyiv E (14,-2) clears Antalya pin 2 and Tehran pin 8;
+#  pin 2 Antalya SW (-10,8) clears Gaza dot 28 and Bahrain pin 3;
 #  pin 5 Wellington W (-8,0) keeps the pin inside the map frame
 #  (true spot 2px past the right edge at 343+7=350 > 348);
-#  pin 8 Tehran NE (10,-8) clears Bahrain pin 3 (7.9px);
-#  dot 15 Warsaw S (0,8) clears Finland pin 7 (7.2px);
-#  dot 16 Copenhagen N (0,-6) clears Brussels pin 12 (8.7px);
-#  dot 19 Manila SE (6,4) clears Hong Kong pin 4 (8.96px);
-#  dot 20 Hanoi S (0,8) clears Hong Kong pin 4 (7.91px);
-#  dot 28 Gaza SW (-8,6) clears Antalya pin 2 (5.4px);
-#  dot 29 Riyadh SE (12,8) clears Bahrain pin 3 (3.8px);
-#  dot 30 New York NE (8,-6) clears Washington pin 11 (3.2px);
-#  dot 32 Los Angeles W (-10,6) clears Las Vegas pin 6 (3.4px);
-#  dot 34 Leeds NW (-10,-8) clears Brussels pin 12 (6.0px);
-#  dot 36 Turin SE (8,4) clears Brussels pin 12 (5.6px).
+#  pin 7 Finland NE (14,-10) and pin 15 Warsaw NW (-10,-12) split
+#  the pair apart; pin 16 Copenhagen NW (-18,-12) clears Brussels;
+#  pin 8 Tehran NE (10,-8) clears Bahrain pin 3 and Kyiv pin 1;
+#  pin 12 Brussels W (-18,0) clears Copenhagen pin 16;
+#  pin 17 New Delhi W (-4,0) clears Manipur pin 13;
+#  dot 19 Manila SE (6,4) clears Hong Kong pin 4;
+#  dot 20 Hanoi S (0,8) clears Hong Kong pin 4 and Cikande pin 9;
+#  dot 22 Beijing N (0,-8) clears Seoul pin 18;
+#  dot 29 Riyadh SE (12,8) clears Bahrain pin 3;
+#  dot 30 New York NE (8,-6) clears Washington pin 11;
+#  dot 31 Bangkok W (-12,4) clears Manipur pin 13 and Hong Kong pin 4;
+#  dot 32 Los Angeles W (-10,6) clears Las Vegas pin 6;
+#  dot 33 Miami S (0,8) clears Washington pin 11;
+#  dot 34 Leeds W (-20,-10) clears Brussels pin 12 and Copenhagen pin 16.
 # Dot-dot tight pairs are true geography, not defects: Khartoum /
 # Kordofan ~4.0px, Canberra / Melbourne ~4.3px, Vatican / Turin
 # ~3.8px, Hanoi / Bangkok ~5.3px (2px-radius dots).
-PIN_OFF = {1: (12, 0), 5: (-8, 0), 8: (10, -8)}
-DOT_OFF = {15: (0, 8), 16: (0, -6), 19: (6, 4), 20: (0, 8),
-           28: (-8, 6), 29: (12, 8),
-           30: (8, -6), 32: (-10, 6), 34: (-10, -8), 36: (8, 4)}
+PIN_OFF = {1: (14, -2), 2: (-10, 8), 5: (-8, 0), 7: (14, -10),
+           8: (10, -8), 12: (-18, 0), 15: (-10, -12), 16: (-18, -12),
+           17: (-4, 0)}
+DOT_OFF = {19: (6, 4), 20: (0, 8), 22: (0, -8), 29: (12, 8),
+           30: (8, -6), 31: (-12, 4), 32: (-10, 6), 33: (0, 8),
+           34: (-20, -10)}
 
 
 def wrap_text(d, text, font, width, max_lines=None):
@@ -370,10 +388,9 @@ def _scrim(img, d, w, h, big, small):
 
 def paint(key, w, h):
     """One picture, drawn from scratch in flat vector shapes.
-    Heroes are painted at h=105 and stretched to 132 (so verticals are
-    drawn short); smalls at h=80 and shrunk to 64. The bottom-left of
-    a hero stays clear for the scrim; the top 18px of a small stays
-    clear for the solid banner."""
+    Heroes are painted at h=105 and shrunk to 100; smalls at h=80
+    and shrunk to 48. The bottom-left of a hero stays clear for the
+    scrim; the top 18px of a small stays clear for the solid banner."""
     img, d = _art_canvas(w, h)
     if key == "drones":
         # Hero 1: the 186-drone night attack. Dark sky, a city skyline
@@ -416,17 +433,15 @@ def paint(key, w, h):
             star(d, ex, ey, 10, 4, fill=(255, 140, 40))
             star(d, ex, ey, 5, 2, fill=(255, 210, 31))
     elif key == "cop31":
-        # Hero 2: the climate summit. Laid out for a 294px rail:
-        # globe left, red thermometer centre, clock right, a red
-        # TEXT LANDS banner bottom-centre. The globe and clock are
-        # drawn squashed (height = width / 1.52) so the 1.26x stretch
-        # renders them round.
+        # Hero 2: the climate summit, diagrammatic — a round globe,
+        # a red thermometer, a round clock, a red TEXT LANDS banner.
+        # Drawn true (heroes now shrink 105 -> 100, not stretched).
         d.rectangle([0, 0, w, h], fill=(11, 110, 110))
-        # globe: blue ocean, green continents
-        d.ellipse([18, 22, 108, 82], fill=(30, 120, 200),
+        # globe: blue ocean, green continents, true circle
+        d.ellipse([20, 22, 82, 84], fill=(30, 120, 200),
                   outline=(20, 20, 20), width=2)
-        for lx0, ly0, lx1, ly1 in ((32, 34, 58, 50), (60, 52, 90, 70),
-                                   (32, 58, 46, 68)):
+        for lx0, ly0, lx1, ly1 in ((30, 34, 52, 48), (52, 50, 74, 66),
+                                   (30, 54, 44, 66)):
             d.ellipse([lx0, ly0, lx1, ly1], fill=(60, 180, 90))
         # thermometer: white tube, red fill, round bulb, ticks
         d.rectangle([132, 14, 142, 62], fill="white",
@@ -439,19 +454,18 @@ def paint(key, w, h):
         d.text((154, 16), "+1.5°C", font=F.art_mid, fill="white")
         d.text((154, 38), "LIMIT", font=F.art_mid_small, fill="white")
         d.text((154, 50), "AT RISK", font=F.art_mid_small, fill="white")
-        # clock: white dial, hands at 1 o'clock, DAY 14 below it
-        d.ellipse([222, 18, 286, 58], fill="white",
+        # clock: white dial, hands at 1 o'clock, true circle
+        d.ellipse([228, 22, 284, 78], fill="white",
                   outline=(20, 20, 20), width=2)
         for ang in range(0, 360, 30):
-            tx = 254 + int(28 * math.cos(math.radians(ang)))
-            ty = 38 + int(18 * math.sin(math.radians(ang)))
+            tx = 256 + int(24 * math.cos(math.radians(ang)))
+            ty = 50 + int(24 * math.sin(math.radians(ang)))
             d.ellipse([tx - 1, ty - 1, tx + 1, ty + 1], fill=(20, 20, 20))
-        d.line([254, 38, 254, 22], fill=(20, 20, 20), width=3)
-        d.line([254, 38, 263, 27], fill=(20, 20, 20), width=3)
-        d.ellipse([251, 35, 257, 41], fill=(20, 20, 20))
-        d.text((254, 62), "DAY 14", font=F.art_mid_small, fill="white",
-               anchor="ma")
-        # red TEXT LANDS banner, clear of globe, bulb, clock, scrim
+        d.line([256, 50, 256, 30], fill=(20, 20, 20), width=3)
+        d.line([256, 50, 266, 36], fill=(20, 20, 20), width=3)
+        d.ellipse([253, 47, 259, 53], fill=(20, 20, 20))
+        # red TEXT LANDS banner, bottom-centre, clear of globe, bulb,
+        # clock, scrim
         d.rectangle([150, 80, 262, 102], fill=DARKRED)
         d.text((206, 91), "TEXT LANDS", font=F.art_mid, fill="white",
                anchor="mm")
@@ -764,20 +778,103 @@ def paint(key, w, h):
         d.line([56, 40, 34, 56], fill="white", width=3)
         for bx, by in ((34, 40), (56, 40), (34, 56), (56, 56)):
             d.ellipse([bx - 3, by - 3, bx + 3, by + 3], fill="white")
+    elif key == "quake":
+        # Peru quake toll: cracked dry earth, a rescue tent with a
+        # red cross, rubble blocks. Small art, banner over y0-18.
+        d.rectangle([0, 0, w, h], fill=(190, 160, 110))
+        d.rectangle([0, 60, w, h], fill=(150, 120, 80))
+        # the crack: a jagged dark line across the ground
+        d.line([(0, 66), (40, 58), (80, 68), (120, 60), (160, 70),
+                (196, 62)], fill=(60, 40, 20), width=3)
+        d.line([(60, 62), (70, 70), (80, 64)], fill=(60, 40, 20),
+               width=2)
+        # rubble blocks
+        for bx, by, bw, bh in ((20, 48, 18, 12), (150, 44, 22, 14),
+                               (120, 52, 14, 10)):
+            d.rectangle([bx, by, bx + bw, by + bh], fill=(120, 100, 70),
+                        outline=(60, 40, 20))
+        # the rescue tent: white triangle, red cross
+        d.polygon([(88, 62), (108, 30), (128, 62)], fill="white",
+                  outline=(60, 60, 60))
+        d.rectangle([104, 44, 112, 52], fill=(200, 30, 40))
+        d.rectangle([106, 42, 110, 54], fill=(200, 30, 40))
+    elif key == "nato":
+        # NATO defence: the compass star on a deep blue field.
+        # Small art, banner over y0-18.
+        d.rectangle([0, 0, w, h], fill=(20, 60, 140))
+        d.ellipse([58, 18, 138, 78], outline="white", width=2)
+        # four-point compass star
+        d.polygon([(98, 22), (104, 44), (126, 48), (104, 52),
+                   (98, 74), (92, 52), (70, 48), (92, 44)],
+                  fill="white")
+        d.ellipse([94, 44, 102, 52], fill=(20, 60, 140))
+    elif key == "expelled":
+        # Attaché expelled: a plane climbing away over rooftops.
+        # Small art, banner over y0-18.
+        d.rectangle([0, 0, w, h], fill=(180, 200, 220))
+        for cx, cy, cr in ((40, 26, 8), (90, 20, 6), (150, 28, 9)):
+            d.ellipse([cx - cr, cy - cr, cx + cr, cy + cr],
+                      fill="white")
+        d.rectangle([0, 62, w, h], fill=(90, 90, 100))
+        for bx in (10, 60, 110, 160):
+            d.rectangle([bx, 52, bx + 30, 62], fill=(60, 60, 70))
+        # the plane, nose up, climbing to the right
+        d.polygon([(70, 44), (150, 24), (156, 30), (80, 50)],
+                  fill=(200, 60, 50))
+        d.polygon([(140, 28), (150, 18), (154, 28)], fill=(200, 60, 50))
+        d.polygon([(90, 46), (100, 56), (104, 46)], fill=(200, 60, 50))
+    elif key == "statevisit":
+        # Nepal PM lands on a state visit: a plane on the runway,
+        # two flags on poles. Small art, banner over y0-18.
+        d.rectangle([0, 0, w, h], fill=(200, 220, 235))
+        d.rectangle([0, 58, w, h], fill=(90, 90, 98))
+        for dx in range(6, w, 22):
+            d.line([dx, 66, dx + 11, 66], fill="white", width=2)
+        # two flags: saffron-white-green and crimson-blue
+        for fx, cols in ((24, ((255, 150, 0), "white", (0, 130, 60))),
+                         (164, ((200, 30, 50), (20, 60, 140), None))):
+            d.line([fx, 24, fx, 58], fill=(60, 60, 60), width=2)
+            d.rectangle([fx, 24, fx + 22, 32], fill=cols[0])
+            d.rectangle([fx, 32, fx + 22, 40], fill=cols[1])
+            if cols[2]:
+                d.rectangle([fx, 40, fx + 22, 48], fill=cols[2])
+        # the plane, level, wheels down
+        d.ellipse([70, 44, 132, 54], fill=(40, 90, 160))
+        d.polygon([(124, 46), (132, 38), (136, 46)], fill=(40, 90, 160))
+        d.polygon([(84, 52), (94, 62), (98, 52)], fill=(40, 90, 160))
+        for wx in (84, 118):
+            d.ellipse([wx - 4, 54, wx + 4, 62], fill=(20, 20, 20))
+    elif key == "exam":
+        # Minister quits over exam cheating: a desk, an exam paper
+        # with red crosses, a pencil. Small art, banner over y0-18.
+        d.rectangle([0, 0, w, h], fill=(120, 90, 60))
+        d.rectangle([0, 62, w, h], fill=(90, 65, 40))
+        # the paper, tilted, with answer lines and two red Xs
+        d.polygon([(70, 24), (130, 28), (126, 62), (66, 58)],
+                  fill="white", outline=(60, 60, 60))
+        for ly in (34, 42, 50):
+            d.line([76, ly, 120, ly + 2], fill=GREY, width=1)
+        for xx, xy in ((112, 34), (100, 46)):
+            d.line([xx - 4, xy - 4, xx + 4, xy + 4], fill=RED, width=2)
+            d.line([xx + 4, xy - 4, xx - 4, xy + 4], fill=RED, width=2)
+        # the pencil on the desk
+        d.polygon([(140, 66), (172, 62), (176, 66), (144, 70)],
+                  fill=(255, 200, 40))
+        d.polygon([(172, 62), (180, 64), (176, 66)], fill=(240, 200, 180))
     else:
         d.rectangle([0, 0, w, h], fill=(200, 200, 200))
     return img
 
 
 def hero_picture(key, w):
-    """A hero picture: painted at 105 tall, stretched to 132."""
+    """A hero picture: painted at 105 tall, shrunk to 100."""
     img = paint(key, w, 105)
     return img.resize((w, HERO_ART), Image.LANCZOS)
 
 
 def small_picture(key, big, small):
     """A small picture: painted at 196x80 with its solid banner,
-    shrunk to 196x64."""
+    shrunk to 196x48."""
     img = paint(key, 196, 80)
     d = ImageDraw.Draw(img)
     _banner(img, d, 196, 80, big, small, RED)
@@ -785,12 +882,12 @@ def small_picture(key, big, small):
 
 
 def hero_card(img, d, story, x, y, w):
-    """A hero card: 132px art with a bottom-left scrim label, a 14px
+    """A hero card: 100px art with a bottom-left scrim label, a 14px
     navy kicker strip (verification pill left, number + dateline +
     topic, source right in gold), a two-line 27px serif headline and
-    a two-line 12px serif deck, the text block centred in the 92px
-    area under the strip, all inside a 1px ink box. Card 238 tall:
-    art 132, strip 14, text 92."""
+    a two-line 12px serif deck, the text block centred in the 88px
+    area under the strip, all inside a 1px ink box. Card 202 tall:
+    art 100, strip 14, text 88."""
     num, reg, topic, src, _st, head, deck, big, small, key, vtag = story
     d.rectangle([x, y, x + w, y + HERO_H], fill=CARD)
     art105 = paint(key, w, 105)
@@ -820,13 +917,13 @@ def hero_card(img, d, story, x, y, w):
 
 
 def small_card(img, d, story, x, y):
-    """A small card: 64px art with a solid red banner across its top
-    carrying the art labels in white, a 15px navy kicker strip
+    """A small card: 48px art with a solid red banner across its top
+    carrying the art labels in white, a 14px navy kicker strip
     (number + dateline + topic left, verification pill right — the
     kicker shrinks 9px to 8px when pill + text would overflow the
     196px card), a two-line 16px serif headline and a two-line 11px
-    serif deck with its source, inside a 1px ink box. Card 141 tall:
-    art 64, strip 15, headline + deck 62."""
+    serif deck with its source, inside a 1px ink box. Card 124 tall:
+    art 48, strip 14, headline + deck 62."""
     num, reg, topic, src, _st, head, deck, big, small, key, vtag = story
     w = 196
     d.rectangle([x, y, x + w, y + SMALL_H], fill=CARD)
@@ -952,7 +1049,7 @@ def main():
         d.text((sx + seg / 2, bar_y + 6), "%s %d" % (label, count),
                font=F.src, fill=ink, anchor="mm")
 
-    # ---- UTC timeline 176-205: a black label box at the left, then
+    # ---- UTC timeline 176-202: a black label box at the left, then
     # seven evenly spaced columns (98-1012, 130.6px each): red bold
     # time above a ruled line with a red dot, bold event below. ----
     tl_y = 176
@@ -968,44 +1065,44 @@ def main():
                 ("17:00", "Zverev–Alcaraz final")]
     tl_x0, tl_x1 = 98, RIGHT
     col = (tl_x1 - tl_x0) / len(timeline)
-    d.line([tl_x0, tl_y + 14, tl_x1, tl_y + 14], fill=INK, width=1)
+    d.line([tl_x0, tl_y + 13, tl_x1, tl_y + 13], fill=INK, width=1)
     for i, (tt, ev) in enumerate(timeline):
         cx = tl_x0 + col * (i + 0.5)
-        d.text((cx, tl_y + 1), tt, font=F.time, fill=RED, anchor="ma")
-        d.ellipse([cx - 3, tl_y + 11, cx + 3, tl_y + 17], fill=RED)
-        d.text((cx, tl_y + 19), ev, font=F.time_small, fill=INK,
+        d.text((cx, tl_y), tt, font=F.time, fill=RED, anchor="ma")
+        d.ellipse([cx - 3, tl_y + 10, cx + 3, tl_y + 16], fill=RED)
+        d.text((cx, tl_y + 17), ev, font=F.time_small, fill=INK,
                anchor="ma")
 
-    # ---- heroes 208-446: lead 396 wide, two rails 294 wide, 8px gaps. ----
+    # ---- heroes 205-407: lead 396 wide, two rails 294 wide, 8px gaps. ----
     hero_x = MARGIN
     for i, story in enumerate(FRONT[:3]):
         w = [396, 294, 294][i]
         hero_card(img, d, story, hero_x, HERO_Y, w)
         hero_x += w + 8
 
-    # ---- smalls 454-745: two rows of five, 196 wide, 204 pitch,
-    # 150 row pitch, 9px gaps. ----
-    for r in range(2):
+    # ---- smalls 415-793: three rows of five, 196 wide, 204 pitch,
+    # 126 row pitch, 9px gaps. ----
+    for r in range(3):
         for c in range(5):
             k = 3 + r * 5 + c
             small_card(img, d, FRONT[k], MARGIN + c * 204,
                        SMALL_Y + r * SMALL_ROW)
 
-    # ---- map + also 753-929: the light map at the left, the 23-line
+    # ---- map + also 801-963: the light map at the left, the 18-line
     # also-list in two 320px columns at the right. ----
     d.text((MARGIN, MAP_Y), "WHERE IT HAPPENED", font=F.section, fill=INK)
     d.line([MARGIN, MAP_Y + 16, 348, MAP_Y + 16], fill=INK, width=1)
-    d.rectangle([MARGIN, MAP_Y + 22, 348, MAP_Y + 170], fill=OCEAN,
+    d.rectangle([MARGIN, MAP_Y + 22, 348, MAP_Y + 162], fill=OCEAN,
                 outline=RULE, width=1)
     draw_map(d, MARGIN, MAP_Y + 22, MAP_W, MAP_H)
 
     also_x = 364
     d.text((also_x, MAP_Y), "ALSO ON SUNDAY 22 NOVEMBER", font=F.section,
            fill=INK)
-    d.text((RIGHT, MAP_Y), "23 MORE STORIES", font=F.section, fill=INK,
+    d.text((RIGHT, MAP_Y), "18 MORE STORIES", font=F.section, fill=INK,
            anchor="ra")
     d.line([also_x, MAP_Y + 16, RIGHT, MAP_Y + 16], fill=INK, width=1)
-    col_w, rows = 320, 12
+    col_w, rows = 320, 9
     for i, (num, city, txt, src) in enumerate(ALSO):
         col_i = 0 if i < rows else 1
         row = i if i < rows else i - rows
@@ -1017,7 +1114,7 @@ def main():
         d.text((x + 20, y), lines[0] if lines else "", font=F.also,
                fill=INK)
 
-    # ---- date check 935-962: the red box naming the big stories
+    # ---- date check 969-996: the red box naming the big stories
     # deliberately left out because they are not Sunday — Friday's
     # Peru quake (only the toll update is Sunday), Myanmar's ruling,
     # the Nvidia probe, Russia's 400-drone barrage; Saturday's
@@ -1032,22 +1129,17 @@ def main():
     for j, ln in enumerate(chk_lines):
         d.text((20, CHK_Y - 1 + j * 11), ln, font=F.datechk, fill=INK)
 
-    # ---- footer 966-1017: two centred lines, then the HOW WE CHECKED
-    # box (red outline, 988-1017) with the certainty legend and a
-    # sourcing note. ----
+    # ---- footer 999-1019: a centred sources line, then the HOW WE
+    # CHECKED legend as one line (the certainty key the red box held
+    # in v1, kept as a line because the third small row took its box).
+    # ----
     d.text((512, FOOT_Y),
-           "Every story here happened, or was first reported, on Sunday 22 November 2026.",
+           "Sources: Reuters · AP · AFP · SCMP · Al Jazeera · BBC · Guardian · Detik · Xinhua · IANS · Yonhap · ABC · Vatican · ATP. · Corrections: none",
            font=F.foot, fill=GREY, anchor="ma")
-    d.text((512, FOOT_Y + 10),
-           "Sources: Reuters · AP · AFP · SCMP · Al Jazeera · BBC · Guardian · Detik · Xinhua · IANS · Yonhap · ABC · Vatican · ATP.",
-           font=F.foot, fill=GREY, anchor="ma")
-    d.rectangle([MARGIN, 988, RIGHT, 1017], outline=RED, width=2)
     hx = 20 + int(d.textlength("HOW WE CHECKED — ", font=F.foot))
-    d.text((20, 992), "HOW WE CHECKED — ", font=F.foot, fill=RED)
-    d.text((hx, 992), "CONFIRMED 2+ named sources agree · OFFICIAL on the record · "
+    d.text((20, FOOT_Y + 10), "HOW WE CHECKED — ", font=F.foot, fill=RED)
+    d.text((hx, FOOT_Y + 10), "CONFIRMED 2+ named sources agree · OFFICIAL on the record · "
            "REPORTED one named source · CLAIM one side's claim, unverified",
-           font=F.foot, fill=INK)
-    d.text((20, 1002), "Ukraine drones: Ukrainian Air Force 161 downed of 186 fired · Corrections: none",
            font=F.foot, fill=INK)
 
     out_path = os.path.join(HERE, "entry.png")
